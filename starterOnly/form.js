@@ -3,7 +3,10 @@ const form = document.querySelector("form")
 // Ecoute le submit du formulaire
 form.addEventListener("submit", (e) => {
   e.preventDefault()
-  
+})
+
+// validation du formulaire 
+function Validate() {
   //récuperer les éléments du formulaire
   const first = document.getElementById("first")
   const last = document.getElementById("last")
@@ -13,23 +16,23 @@ form.addEventListener("submit", (e) => {
   const location = document.querySelectorAll('.formData input.checkbox-input[name=location]')
   const checkbox1 = document.getElementById("checkbox1")
   const checkbox2 = document.getElementById("checkbox2")
-  console.log(location);
-  console.log(location[1].checked);
-  console.log(quantity.value);
   /////////// controle des inputs /////////////////////////////////
-  
-  regexprenom= /^([^ ])(([A-Za-zÀ-ÿœ]{2,40})?(['.\ -]{0,5}))*$/;
-  msgprenom = "Chiffes et symboles interdits.Maxi 40, mini 2 caractères";
-  regexnom= /^([^ ])(([A-Za-zÀ-ÿœ]{2,30})?(['.\ -]{0,5}))*$/;
-  msgnom = `Chiffes et symboles interdits.Maxi 30, mini 2 caractères`;
+  console.log(checkbox1.checked);
+
+  regexprenom= /(^[A-Z]+[ \-'])?([[a-zA-ZÀ-ÿœé])+([ \-'])?]*([a-zA-ZÀ-ÿœ])+$/;
+  msgprenom = "Chiffes et symboles interdits.Minimum 2 caractères";
+  regexnom= /(^[A-Z]+[ \-'])?([[a-zA-ZÀ-ÿœé])+([ \-'])?]*([a-zA-ZÀ-ÿœ])+$/;
+  msgnom = `Chiffes et symboles interdits.Mini 2 caractères`;
   regexemail= /^([^ ])[a-zA-Z0-9_.+-]+@[a-zA-Z]+\.[a-z]{2,4}$/;
   msgemail = `Veuillez indiquer une adresse email valide`;
   msgbirthdate =`veuillez entrer une date valide`;
   regexquantity =/^[0-9]{0,1}[0-9]$/;
   msgquantity = `Veuillez indiquer une quantité entre 0 et 99`;
+  msglocation = `Veuillez sélectionner la localisation d'un tournois`;
+  msgcheckbox1 = `Veuillez accepter les conditions d'utilisation`
   
-  function checkinput (regex, msg, inputValue,) {
-    if(regex.test(inputValue)) {
+  function checkinput (regex, msg, inputValue) {
+    if(regex.test(inputValue)){
       return true
     }else {
       console.log(msg);
@@ -49,11 +52,31 @@ form.addEventListener("submit", (e) => {
     }
   }
 
+  function checklocation(msg, inputValue) {
+    for(let i=0; i < inputValue.length; i++) {
+      if(inputValue[i].checked) {
+        return true
+      } else{
+        console.log(msg)
+        return false
+      }
+    }
+  }
+
+  function checkcheckbox1(msg, inputValue){
+    if(inputValue) {
+      return true
+    }
+    console.log(msg);
+  }
+
   checkinput(regexprenom, msgprenom, first.value)
   checkinput(regexnom, msgnom, last.value)
   checkinput(regexemail, msgemail, email.value)
   checkinput(regexquantity, msgquantity, quantity.value)
   checkbirthdate(msgbirthdate, birthdate.value)
+  checklocation(msglocation, location)
+  checkcheckbox1(msgcheckbox1, checkbox1.checked )
   //////////////////////////////////////////////////////////////////////////////
-})
+}
   
