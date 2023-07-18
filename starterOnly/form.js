@@ -17,12 +17,13 @@ form.addEventListener("submit", (e) => {
   
   /////////// controle des inputs /////////////////////////////////
   
-  regexprenom= /^([^ ])(([A-Za-zÀ-ÿœ]{2,40})?(['.\ -]{0,5}))*$/;
+  regexprenom= /^(([A-Za-zÀ-ÿœ]{2,40})([^ ])?(['.\ -]{0,5}))*$/;
   msgprenom = "Chiffes et symboles interdits.Maxi 40, mini 2 caractères";
-  regexnom= /^([^ ])(([a-zA-ZÀ-ÿœ\,\'\.\ \-]{2,30}))*$/;
+  regexnom= /^(([A-Za-zÀ-ÿœ]{2,30})([^ ])?(['.\ -]{0,5}))*$/;
   msgnom = `Chiffes et symboles interdits.Maxi 30, mini 2 caractères`;
   regexemail= /^([^ ])[a-zA-Z0-9_.+-]+@[a-zA-Z]+\.[a-z]{2,4}$/;
   msgemail = `Veuillez indiquer une adresse email valide`;
+  msgbirthdate =`veuillez entrer une date valide`
   
   function checkinput (regex, msg, inputValue,) {
     if(regex.test(inputValue)) {
@@ -32,11 +33,23 @@ form.addEventListener("submit", (e) => {
       return false
     }
   }
+  function checkbirthdate (msg, inputValue) {
+    let todayDate = new Date()
+    let year = todayDate.getFullYear()
+    let inputYear = inputValue.split('-')
+    let inputYearValue = inputYear[0]
+    if((year-inputYearValue)>=18 && (year-inputYearValue)<100) {
+      return true
+    }else {
+      console.log(msg);
+      return false
+    }
+
+  }
   checkinput(regexprenom, msgprenom, first.value)
   checkinput(regexnom, msgnom, last.value)
   checkinput(regexemail, msgemail, email.value)
+  checkbirthdate(msgbirthdate, birthdate.value)
   //////////////////////////////////////////////////////////////////////////////
 })
-  
-  
   
