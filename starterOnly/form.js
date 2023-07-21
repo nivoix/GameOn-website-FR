@@ -31,57 +31,66 @@ function Validate() {
   
 
   function checkinput (regex, msg, inputValue, inputError) {
-    let formDataError = document.querySelector(`.${inputError}`)
-    console.log(inputError);
-    console.log(formDataError);
     if(regex.test(inputValue)){
-      formDataError.toggleAttribute("data-error")
-      formDataError.toggleAttribute("data-error-visible")
+      toggleAttribute(inputError)
       return true
     }else {
-      formDataError.setAttribute("data-error", msg)
-      formDataError.setAttribute("data-error-visible","true")
+      setAttribute(msg, inputError)
       return false
     }
   }
-  function checkbirthdate (msg, inputValue) {
+  function checkbirthdate (msg, inputValue, inputError) {
     let todayDate = new Date()
     let year = todayDate.getFullYear()
     let inputYear = inputValue.split('-')
     let inputYearValue = inputYear[0]
     if((year-inputYearValue)>=18 && (year-inputYearValue)<100) {
+      toggleAttribute(inputError)
       return true
     }else {
-      console.log(msg);
+      setAttribute(msg, inputError)
       return false
     }
   }
 
-  function checklocation(msg, inputValue) {
-    for(let i=0; i < inputValue.length; i++) {
-      if(inputValue[i].checked) {
+  function checklocation(msg, inputValue, inputError) {
+  const checkboxes = document.querySelectorAll(".checkbox-input[type=radio]");
+    if(Array.from(checkboxes).some((checkbox) => checkbox.checked)) {
+        toggleAttribute(inputError)
         return true
       } else{
-        console.log(msg)
+        setAttribute(msg, inputError)
         return false
       }
-    }
   }
 
-  function checkcheckbox1(msg, inputValue){
+  function checkcheckbox1(msg, inputValue, inputError){
     if(inputValue) {
+      toggleAttribute(inputError)
       return true
+    } else{
+      setAttribute(msg, inputError)
     }
     console.log(msg);
+  }
+  
+  function toggleAttribute(inputError) {
+    let formDataError = document.querySelector(`.${inputError}`)
+    formDataError.toggleAttribute("data-error")
+    formDataError.toggleAttribute("data-error-visible")
+  }
+  function setAttribute(msg, inputError) {
+    let formDataError = document.querySelector(`.${inputError}`)
+      formDataError.setAttribute("data-error", msg)
+      formDataError.setAttribute("data-error-visible","true")
   }
 
   checkinput(regexprenom, msgprenom, first.value, "first")
   checkinput(regexnom, msgnom, last.value, "last")
   checkinput(regexemail, msgemail, email.value, "email")
   checkinput(regexquantity, msgquantity, quantity.value, "quantity")
-  checkbirthdate(msgbirthdate, birthdate.value)
-  checklocation(msglocation, location)
-  checkcheckbox1(msgcheckbox1, checkbox1.checked )
+  checkbirthdate(msgbirthdate, birthdate.value, "birthdate")
+  checklocation(msglocation, location, "radio")
+  checkcheckbox1(msgcheckbox1, checkbox1.checked, "checkbox1" )
   //////////////////////////////////////////////////////////////////////////////
 }
-  
