@@ -71,7 +71,6 @@ function Validate() {
     } else{
       setAttribute(msg, inputError)
     }
-    console.log(msg);
   }
   
   function toggleAttribute(inputError) {
