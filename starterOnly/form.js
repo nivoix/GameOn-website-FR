@@ -1,11 +1,7 @@
 const form = document.querySelector("form")
 // Ecoute le submit du formulaire
 form.addEventListener("submit", (e) => {
-  e.preventDefault() 
-  if(Validate()){
-    console.log(Validate());
-    return true
-  } 
+  e.preventDefault()
 })
 
 // validation du formulaire 
@@ -22,9 +18,9 @@ function Validate() {
   /////////// controle des inputs /////////////////////////////////
 
   regexprenom= /(^[A-Z]+[ \-'])?([[a-zA-ZÀ-ÿœé])+([ \-'])?]*([a-zA-ZÀ-ÿœ])+$/;
-  msgprenom = "Chiffes et symboles interdits. Minimum 2 caractères.";
+  msgprenom = "Chiffres et symboles interdits. Minimum 2 caractères.";
   regexnom= /(^[A-Z]+[ \-'])?([[a-zA-ZÀ-ÿœé])+([ \-'])?]*([a-zA-ZÀ-ÿœ])+$/;
-  msgnom = `Chiffes et symboles interdits. Minimum 2 caractères.`;
+  msgnom = `Chiffres et symboles interdits. Minimum 2 caractères.`;
   regexemail= /^([^ ])[a-zA-Z0-9_.+-]+@[a-zA-Z]+\.[a-z]{2,4}$/;
   msgemail = `Veuillez indiquer une adresse email valide.`;
   msgbirthdate =`veuillez entrer une date valide.`;
@@ -95,11 +91,5 @@ function Validate() {
   checkbirthdate(msgbirthdate, birthdate.value, "birthdate")
   checklocation(msglocation, location, "radio")
   checkcheckbox1(msgcheckbox1, checkbox1.checked, "checkbox1" )
-
-  if(checkinput && checkbirthdate && checklocation && checkcheckbox1){
-    document.querySelector(".modal-body").style.display = "none";
-    document.querySelector(".content").setAttribute("formValidate", "Merci pour votre inscription")
-    document.querySelector(".content").classList.add("containerformvalidate")/* 
-    document.getElementById("btn-close-formvalidate").classList.remove("hide") */
-  }
+  //////////////////////////////////////////////////////////////////////////////
 }
