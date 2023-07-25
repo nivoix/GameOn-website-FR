@@ -14,7 +14,7 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  background-image: url("background.png");
+  /* background-image: url("background.png"); */
   font-family: var(--font-default);
   font-size: 18px;
   max-width: 1300px;
@@ -203,6 +203,7 @@ main {
 .modal-body {
   padding: 15px 8%;
   margin: 15px auto;
+  
 }
 
 label {
@@ -243,7 +244,39 @@ input {
 .formData[data-error-visible="true"] .text-control {
   border: 2px solid #e54858;
 }
+/*********message de confirmation de formulaire*********/
+.containerformvalidate{
+  display: flex;
+  height: 100%;
+  align-items: center;
+  text-align: center;
+  padding-inline: 53px;
+  margin: auto;
+  justify-content: center;
+}
 
+.content[formValidate]::after{
+  content: attr(formValidate);
+  font-size: 52px;
+  font-weight: 400;
+}
+
+.btn-close-form hide{
+  display: none;
+}
+.btn-close-form{
+  background: #fe142f;
+  display: block;
+  margin: 0 auto;
+  border-radius: 7px;
+  font-size: 1rem;
+  padding: 12px 82px;
+  color: #fff;
+  cursor: pointer;
+  border: 0;
+}
+
+/**********fin message de confirmation de formulaire***********/
 /* input[data-error]::after {
     content: attr(data-error);
     font-size: 0.4em;

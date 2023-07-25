@@ -1,7 +1,11 @@
 const form = document.querySelector("form")
 // Ecoute le submit du formulaire
 form.addEventListener("submit", (e) => {
-  e.preventDefault()
+  e.preventDefault() 
+  if(Validate()){
+    console.log(Validate());
+    return true
+  } 
 })
 
 // validation du formulaire 
@@ -91,5 +95,11 @@ function Validate() {
   checkbirthdate(msgbirthdate, birthdate.value, "birthdate")
   checklocation(msglocation, location, "radio")
   checkcheckbox1(msgcheckbox1, checkbox1.checked, "checkbox1" )
-  //////////////////////////////////////////////////////////////////////////////
+
+  if(checkinput && checkbirthdate && checklocation && checkcheckbox1){
+    document.querySelector(".modal-body").style.display = "none";
+    document.querySelector(".content").setAttribute("formValidate", "Merci pour votre inscription")
+    document.querySelector(".content").classList.add("containerformvalidate")/* 
+    document.getElementById("btn-close-formvalidate").classList.remove("hide") */
+  }
 }
