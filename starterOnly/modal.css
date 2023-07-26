@@ -217,7 +217,22 @@ main {
     flex-direction: column;
     align-items: center;
 }
+.textconfirm{
+  font-weight: 400;
+  font-size: 33px;
+  margin-bottom: 140px;
+  margin-top: 140px;
+}
 /* *************************fin container de confirmation */
+@media screen and (max-width: 540px) {
+  .bground {
+    background: none;
+  }
+  .content {
+    margin-top: 20%;
+    margin-bottom: 0;
+  }
+} 
 label {
   font-family: var(--font-default);
   font-size: 17px;

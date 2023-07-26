@@ -13,7 +13,6 @@ function Validate(form) {
   const birthdate = document.getElementById("birthdate")
   const quantity = document.getElementById("quantity")
   const checkbox1 = document.getElementById("checkbox1")
-  let inputcheck = false
   let inputbirtdate = false
   let inputlocation = false
   let inputcheckbox1 = false
@@ -94,7 +93,7 @@ function Validate(form) {
     formDataError.setAttribute("data-error", msg)
     formDataError.setAttribute("data-error-visible","true")
   }
-
+// controle du formulaire et mise en page modal de fin
   function controleform() {
     if(inputfirst && inputlast && inputemail && inputquantity && inputbirtdate && inputlocation && inputcheckbox1){
       document.querySelector("form").style.display = "none"
@@ -105,8 +104,14 @@ function Validate(form) {
       divconfirm.className = "contentconfirm"
       document.querySelector(".contentconfirm").appendChild(textconfirm)
       document.querySelector(".contentconfirm").appendChild(btnclose)
-      textconfirm.innerHTML= "<p>Merci pour<br></br> votre inscription !</p>"
+      textconfirm.className = "textconfirm"
+      textconfirm.innerHTML= "Merci pour<br></br> votre inscription !"
       btnclose.className = "btn-submit"
+      btnclose.innerText = "Fermer"
+      btnclose.addEventListener("click", () => {
+        CloseModal
+        location.reload()
+      })
     }
   }
 
