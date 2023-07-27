@@ -1,3 +1,4 @@
+//controle de l'évènement par défaut de la soumission du formulaire
 const form = document.querySelector("form")
 // Ecoute le submit du formulaire
 form.addEventListener("submit", (e) => {
@@ -17,7 +18,7 @@ function Validate(form) {
   let inputlocation = false
   let inputcheckbox1 = false
 
-  //expressions régullières et messages d'erreur
+//expressions régulières et messages d'erreur
   regexprenom= /(^[A-Z]+[ \-'])?([[a-zA-ZÀ-ÿœé])+([ \-'])?]*([a-zA-ZÀ-ÿœ])+$/;
   msgprenom = "Chiffres et symboles interdits. Minimum 2 caractères.";
   regexnom= /(^[A-Z]+[ \-'])?([[a-zA-ZÀ-ÿœé])+([ \-'])?]*([a-zA-ZÀ-ÿœ])+$/;
@@ -42,7 +43,7 @@ function Validate(form) {
     }
   }
 
-  //controle de la date d'anniversaire
+//controle de la date d'anniversaire
   function checkbirthdate (msg, inputValue, inputError) {
     let todayDate = new Date()
     let year = todayDate.getFullYear()
@@ -58,7 +59,7 @@ function Validate(form) {
     }
   }
 
-  // controle de la localisation cochée
+// controle de la localisation cochée
   function checklocation(msg, inputError) {
   const checkboxes = document.querySelectorAll(".checkbox-input[type=radio]");
     if(Array.from(checkboxes).some((checkbox) => checkbox.checked)) {
@@ -71,7 +72,7 @@ function Validate(form) {
     }
   }
 
-  //controle des conditions d'utilisation cochées
+//controle des conditions d'utilisation cochées
   function checkcheckbox1(msg, inputValue, inputError){
     if(inputValue) {
       toggleAttribute(inputError)
@@ -82,7 +83,7 @@ function Validate(form) {
     }
   }
   
-  // 2 fonctions pour afficher ou non le message d'erreur avec son style
+// 2 fonctions pour afficher ou non le message d'erreur avec son style////////////
   function toggleAttribute(inputError) {
     let formDataError = document.querySelector(`.${inputError}`)
     formDataError.toggleAttribute("data-error")
@@ -93,29 +94,36 @@ function Validate(form) {
     formDataError.setAttribute("data-error", msg)
     formDataError.setAttribute("data-error-visible","true")
   }
-// controle du formulaire et mise en page modal de fin
+/////////////////////////////////////////////////////////////////////////////////
+
+// controle du formulaire complet 
   function controleform() {
     if(inputfirst && inputlast && inputemail && inputquantity && inputbirtdate && inputlocation && inputcheckbox1){
       document.querySelector("form").style.display = "none"
-      let divconfirm = document.createElement("div")
-      let btnclose = document.createElement("button")
-      let textconfirm = document.createElement("span")
-      document.querySelector(".modal-body").appendChild(divconfirm)
-      divconfirm.className = "contentconfirm"
-      document.querySelector(".contentconfirm").appendChild(textconfirm)
-      document.querySelector(".contentconfirm").appendChild(btnclose)
-      textconfirm.className = "textconfirm"
-      textconfirm.innerHTML= "Merci pour<br></br> votre inscription !"
-      btnclose.className = "btn-submit"
-      btnclose.innerText = "Fermer"
-      btnclose.addEventListener("click", () => {
-        CloseModal
-        location.reload()
-      })
+      launchModalConfirm()
     }
   }
+  
+// mise en place modal de confirmation
+  function launchModalConfirm(){
+    let divconfirm = document.createElement("div")
+    let btnclose = document.createElement("button")
+    let textconfirm = document.createElement("span")
+    document.querySelector(".modal-body").appendChild(divconfirm)
+    divconfirm.className = "contentconfirm"
+    document.querySelector(".contentconfirm").appendChild(textconfirm)
+    document.querySelector(".contentconfirm").appendChild(btnclose)
+    textconfirm.className = "textconfirm"
+    textconfirm.innerHTML= "Merci pour<br></br> votre inscription !"
+    btnclose.className = "btn-submit"
+    btnclose.innerText = "Fermer"
+    btnclose.addEventListener("click", () => {
+      CloseModal
+      location.reload()
+    })
+  }
 
-  // appel des fonctions de controle
+  // appel des fonctions de controle des inputs
   let inputfirst = checkinput(regexprenom, msgprenom, first.value, "first")
   let inputlast = checkinput(regexnom, msgnom, last.value, "last")
   let inputemail = checkinput(regexemail, msgemail, email.value, "email")

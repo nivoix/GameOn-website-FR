@@ -130,12 +130,13 @@ main {
   border-radius: 2rem;
   text-align: justify;
 }
+/**************************** change margin for responsive*******************/
 @media screen and (max-width: 540px) {
   main{
     margin: 1px 10px 15px;
   }
 } 
-
+/***********************************************************************************/
 .modal-btn {
   font-size: 145%;
   background: #fe142f;
@@ -209,7 +210,7 @@ main {
   margin: 15px auto;
 }
 
-/****************************** container de confirmation */
+/******************************start container of confirmation ********************************************************/
 .contentconfirm{
   display: flex;
     color: #fff;
@@ -223,7 +224,9 @@ main {
   margin-bottom: 140px;
   margin-top: 140px;
 }
-/* *************************fin container de confirmation */
+/***************************end container of confirmation ********************************************************/
+
+/*************************** Change bacground and modal to match the model figma ***************/
 @media screen and (max-width: 540px) {
   .bground {
     background: none;
@@ -232,7 +235,8 @@ main {
     margin-top: 20%;
     margin-bottom: 0;
   }
-} 
+}
+/********************************************************************************************************************/
 label {
   font-family: var(--font-default);
   font-size: 17px;
@@ -253,6 +257,7 @@ input {
   font-size: 20px;
   height: 48px;
 }
+/********************************if inputvalue no valid***********************************************/
 .formData[data-error]::after {
   content: attr(data-error);
   font-size: 14px;
@@ -271,12 +276,8 @@ input {
 .formData[data-error-visible="true"] .text-control {
   border: 2px solid #e54858;
 }
+/***********************************end inputvalue no valid********************************************/
 
-/* input[data-error]::after {
-    content: attr(data-error);
-    font-size: 0.4em;
-    color: red;
-} */
 .checkbox-label,
 .checkbox2-label {
   position: relative;
