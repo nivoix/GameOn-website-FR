@@ -21,22 +21,16 @@ function Validate() {
 //expressions régulières et messages d'erreur
   regexprenom= /(^[A-Z]+[ \-'])?([[a-zA-ZÀ-ÿœé])+([ \-'])?]*([a-zA-ZÀ-ÿœ])+$/;
   msgprenom = "Chiffres et symboles interdits. Minimum 2 caractères.";
-  msgprenomok = "Saisie validée";
   regexnom= /(^[A-Z]+[ \-'])?([[a-zA-ZÀ-ÿœé])+([ \-'])?]*([a-zA-ZÀ-ÿœ])+$/;
   msgnom = `Chiffres et symboles interdits. Minimum 2 caractères.`;
-  msgnomok = "Saisie validée";
   regexemail= /^([^ ])[a-zA-Z0-9_.+-]+@[a-zA-Z]+\.[a-z]{2,4}$/;
   msgemail = `Veuillez indiquer une adresse email valide.`;
-  msgemailok = "Saisie validée";
   regexquantity =/^[0-9]{0,1}[0-9]$/;
   msgquantity = `Veuillez indiquer une quantité entre 0 et 99.`;
-  msgquantityok = "Saisie validée";
   msgbirthdate =`veuillez entrer une date valide.`;
-  msgbirthdateok = "Saisie validée";
   msglocation = `Veuillez sélectionner la localisation d'un tournois.`;
-  msglocationok = "Saisie validée";
   msgcheckbox1 = `Veuillez accepter les conditions d'utilisation.`;
-  msgcheckbox1ok = "Saisie validée";
+  msgvalideok = "\u2713";
   
 // controle des inputs first, last, email et quantity
   function checkinput (regex, msg, inputValue, inputError, msgvalid) {
@@ -134,12 +128,12 @@ function Validate() {
   }
 
   // appel des fonctions de controle des inputs
-  let inputfirst = checkinput(regexprenom, msgprenom, first.value, "first", msgprenomok)
-  let inputlast = checkinput(regexnom, msgnom, last.value, "last", msgnomok)
-  let inputemail = checkinput(regexemail, msgemail, email.value, "email", msgemailok)
-  let inputquantity = checkinput(regexquantity, msgquantity, quantity.value, "quantity", msgquantityok)
-  checkbirthdate(msgbirthdate, birthdate.value, "birthdate", msgbirthdateok)
-  checklocation(msglocation, "radio", msglocationok)
-  checkcheckbox1(msgcheckbox1, checkbox1.checked, "checkbox1", msgcheckbox1ok)
+  let inputfirst = checkinput(regexprenom, msgprenom, first.value, "first", msgvalideok)
+  let inputlast = checkinput(regexnom, msgnom, last.value, "last", msgvalideok)
+  let inputemail = checkinput(regexemail, msgemail, email.value, "email", msgvalideok)
+  let inputquantity = checkinput(regexquantity, msgquantity, quantity.value, "quantity", msgvalideok)
+  checkbirthdate(msgbirthdate, birthdate.value, "birthdate", msgvalideok)
+  checklocation(msglocation, "radio", msgvalideok)
+  checkcheckbox1(msgcheckbox1, checkbox1.checked, "checkbox1", msgvalideok)
   controleform()
 }
