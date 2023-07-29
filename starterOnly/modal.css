@@ -257,7 +257,7 @@ input {
   font-size: 20px;
   height: 48px;
 }
-/********************************if inputvalue no valid***********************************************/
+/******************************** if inputvalue no valid***********************************************/
 .formData[data-error]::after {
   content: attr(data-error);
   font-size: 14px;
@@ -277,6 +277,29 @@ input {
   border: 2px solid #e54858;
 }
 /***********************************end inputvalue no valid********************************************/
+
+
+/********************************* if inputvalue valid***********************************************/
+.formData[data-valid]::after {
+  content: attr(data-valid);
+  font-size: 14px;
+  color: #10f123;
+  display: block;
+  margin-top: 7px;
+  margin-bottom: 7px;
+  text-align: left;
+  line-height: 0.3;
+  opacity: 0;
+  transition: 0.3s;
+}
+.formData[data-valid-visible="true"]::after {
+  opacity: 1;
+}
+.formData[data-valid-visible="true"] .text-control {
+  border: 2px solid #10f123;
+}
+/***********************************end inputvalue valid********************************************/
+
 
 .checkbox-label,
 .checkbox2-label {

@@ -6,7 +6,7 @@ form.addEventListener("submit", (e) => {
 })
 
 // validation du formulaire 
-function Validate(form) {
+function Validate() {
   //récuperer les éléments du formulaire
   const first = document.getElementById("first")
   const last = document.getElementById("last")
@@ -21,21 +21,27 @@ function Validate(form) {
 //expressions régulières et messages d'erreur
   regexprenom= /(^[A-Z]+[ \-'])?([[a-zA-ZÀ-ÿœé])+([ \-'])?]*([a-zA-ZÀ-ÿœ])+$/;
   msgprenom = "Chiffres et symboles interdits. Minimum 2 caractères.";
+  msgprenomok = "Saisie validée";
   regexnom= /(^[A-Z]+[ \-'])?([[a-zA-ZÀ-ÿœé])+([ \-'])?]*([a-zA-ZÀ-ÿœ])+$/;
   msgnom = `Chiffres et symboles interdits. Minimum 2 caractères.`;
+  msgnomok = "Saisie validée";
   regexemail= /^([^ ])[a-zA-Z0-9_.+-]+@[a-zA-Z]+\.[a-z]{2,4}$/;
   msgemail = `Veuillez indiquer une adresse email valide.`;
-  msgbirthdate =`veuillez entrer une date valide.`;
+  msgemailok = "Saisie validée";
   regexquantity =/^[0-9]{0,1}[0-9]$/;
   msgquantity = `Veuillez indiquer une quantité entre 0 et 99.`;
+  msgquantityok = "Saisie validée";
+  msgbirthdate =`veuillez entrer une date valide.`;
+  msgbirthdateok = "Saisie validée";
   msglocation = `Veuillez sélectionner la localisation d'un tournois.`;
-  msgcheckbox1 = `Veuillez accepter les conditions d'utilisation.`
+  msglocationok = "Saisie validée";
+  msgcheckbox1 = `Veuillez accepter les conditions d'utilisation.`;
+  msgcheckbox1ok = "Saisie validée";
   
-// controle des inputs first, last et email
-  function checkinput (regex, msg, inputValue, inputError) {
+// controle des inputs first, last, email et quantity
+  function checkinput (regex, msg, inputValue, inputError, msgvalid) {
     if(regex.test(inputValue)){
-      toggleAttribute(inputError)
-      inputcheck = true
+      toggleAttribute(msgvalid, inputError)
       return true
     }else {
       setAttribute(msg, inputError)
@@ -44,13 +50,13 @@ function Validate(form) {
   }
 
 //controle de la date d'anniversaire
-  function checkbirthdate (msg, inputValue, inputError) {
+  function checkbirthdate (msg, inputValue, inputError, msgvalid) {
     let todayDate = new Date()
     let year = todayDate.getFullYear()
     let inputYear = inputValue.split('-')
     let inputYearValue = inputYear[0]
     if((year-inputYearValue)>=18 && (year-inputYearValue)<100) {
-      toggleAttribute(inputError)
+      toggleAttribute(msgvalid,inputError)
       inputbirtdate = true
       return true
     }else {
@@ -60,10 +66,10 @@ function Validate(form) {
   }
 
 // controle de la localisation cochée
-  function checklocation(msg, inputError) {
+  function checklocation(msg, inputError, msgvalid) {
   const checkboxes = document.querySelectorAll(".checkbox-input[type=radio]");
     if(Array.from(checkboxes).some((checkbox) => checkbox.checked)) {
-      toggleAttribute(inputError)
+      toggleAttribute(msgvalid, inputError)
       inputlocation = true
       return true
     } else{
@@ -73,9 +79,9 @@ function Validate(form) {
   }
 
 //controle des conditions d'utilisation cochées
-  function checkcheckbox1(msg, inputValue, inputError){
+  function checkcheckbox1(msg, inputValue, inputError, msgvalid){
     if(inputValue) {
-      toggleAttribute(inputError)
+      toggleAttribute(msgvalid, inputError)
       inputcheckbox1 = true
       return true
     } else{
@@ -84,13 +90,17 @@ function Validate(form) {
   }
   
 // 2 fonctions pour afficher ou non le message d'erreur avec son style////////////
-  function toggleAttribute(inputError) {
+  function toggleAttribute(msgvalid, inputError) {
     let formDataError = document.querySelector(`.${inputError}`)
-    formDataError.toggleAttribute("data-error")
-    formDataError.toggleAttribute("data-error-visible")
+    formDataError.removeAttribute("data-error")
+    formDataError.removeAttribute("data-error-visible")
+    formDataError.setAttribute("data-valid", msgvalid)
+    formDataError.setAttribute("data-valid-visible","true")
   }
   function setAttribute(msg, inputError) {
     let formDataError = document.querySelector(`.${inputError}`)
+    formDataError.removeAttribute("data-valid")
+    formDataError.removeAttribute("data-valid-visible")
     formDataError.setAttribute("data-error", msg)
     formDataError.setAttribute("data-error-visible","true")
   }
@@ -124,12 +134,12 @@ function Validate(form) {
   }
 
   // appel des fonctions de controle des inputs
-  let inputfirst = checkinput(regexprenom, msgprenom, first.value, "first")
-  let inputlast = checkinput(regexnom, msgnom, last.value, "last")
-  let inputemail = checkinput(regexemail, msgemail, email.value, "email")
-  let inputquantity = checkinput(regexquantity, msgquantity, quantity.value, "quantity")
-  checkbirthdate(msgbirthdate, birthdate.value, "birthdate")
-  checklocation(msglocation, "radio")
-  checkcheckbox1(msgcheckbox1, checkbox1.checked, "checkbox1")
+  let inputfirst = checkinput(regexprenom, msgprenom, first.value, "first", msgprenomok)
+  let inputlast = checkinput(regexnom, msgnom, last.value, "last", msgnomok)
+  let inputemail = checkinput(regexemail, msgemail, email.value, "email", msgemailok)
+  let inputquantity = checkinput(regexquantity, msgquantity, quantity.value, "quantity", msgquantityok)
+  checkbirthdate(msgbirthdate, birthdate.value, "birthdate", msgbirthdateok)
+  checklocation(msglocation, "radio", msglocationok)
+  checkcheckbox1(msgcheckbox1, checkbox1.checked, "checkbox1", msgcheckbox1ok)
   controleform()
 }
