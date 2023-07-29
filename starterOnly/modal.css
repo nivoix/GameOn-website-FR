@@ -282,7 +282,7 @@ input {
 /********************************* if inputvalue valid***********************************************/
 .formData[data-valid]::after {
   content: attr(data-valid);
-  font-size: 14px;
+  font-size: 20px;
   color: #10f123;
   display: block;
   margin-top: 7px;

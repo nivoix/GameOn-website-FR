@@ -49,13 +49,11 @@ function Validate() {
     let year = todayDate.getFullYear()
     let inputYear = inputValue.split('-')
     let inputYearValue = inputYear[0]
-    if((year-inputYearValue)>=18 && (year-inputYearValue)<100) {
+    if((year-inputYearValue)>17 && (year-inputYearValue)<100) {
       toggleAttribute(msgvalid,inputError)
       inputbirtdate = true
-      return true
     }else {
       setAttribute(msg, inputError)
-      return false
     }
   }
 
@@ -65,10 +63,8 @@ function Validate() {
     if(Array.from(checkboxes).some((checkbox) => checkbox.checked)) {
       toggleAttribute(msgvalid, inputError)
       inputlocation = true
-      return true
     } else{
       setAttribute(msg, inputError)
-      return false
     }
   }
 
@@ -77,7 +73,6 @@ function Validate() {
     if(inputValue) {
       toggleAttribute(msgvalid, inputError)
       inputcheckbox1 = true
-      return true
     } else{
       setAttribute(msg, inputError)
     }
