@@ -45,7 +45,8 @@ function Validate() {
 
 //controle de la date d'anniversaire
   function checkbirthdate (msg, inputValue, inputError, msgvalid) {
-    let todayDate = new Date()
+    ////////////////////////1ere version pour le contrôle de la date d'anniversaire//////////////
+    /* let todayDate = new Date()
     let year = todayDate.getFullYear()
     let inputYear = inputValue.split('-')
     let inputYearValue = inputYear[0]
@@ -54,9 +55,22 @@ function Validate() {
       inputbirtdate = true
     }else {
       setAttribute(msg, inputError)
+    } */
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    if(getAge(new Date(inputValue))>=18 && getAge(new Date(inputValue))<100){
+      toggleAttribute(msgvalid,inputError)
+      inputbirtdate = true
+    }else {
+      setAttribute(msg, inputError)
     }
   }
-
+//fonction permettant de contrôler plus précisément la date d'anniversaire
+  function getAge(inputValue) { 
+    let diff = Date.now() - inputValue.getTime();
+    let age = new Date(diff); 
+    return Math.abs(age.getUTCFullYear() - 1970);
+}
+/********************************************END BIRTHDATE***********************************************************/
 // controle de la localisation cochée
   function checklocation(msg, inputError, msgvalid) {
   const checkboxes = document.querySelectorAll(".checkbox-input[type=radio]");
